@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}アイテム追加 - 管理画面{% endblock %}
+
+{% block header %}新しいアイテムを追加{% endblock %}
+
+{% block content %}
+    <div style="margin-bottom: 20px;">
+        <a href="{{ url_for('admin') }}" class="btn" style="background-color: #6c757d;">← 管理画面に戻る</a>
+    </div>
+
+    {% if not boxes %}
+        <div class="alert" style="background-color: #f8d7da; color: #721c24; border-color: #f5c6cb;">
+            <strong>注意:</strong> アイテムを追加するには、まずボックスを作成する必要があります。
+            <a href="{{ url_for('add_box') }}">ボックスを追加</a>
+        </div>
+    {% else %}
+        <form method="POST" style="max-width: 600px;">
+            <div class="form-group">
+                <label for="box_id">ボックスを選択 *</label>
+                <select id="box_id" name="box_id" required>
+                    <option value="">ボックスを選択してください</option>
+                    {% for box in boxes %}
+                        <option value="{{ box.box_id }}">{{ box.box_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="item_name">アイテム名 *</label>
+                <input type="text" id="item_name" name="item_name" required placeholder="例: 包丁">
+            </div>
+
+            <div class="form-group">
+                <label for="description">説明</label>
+                <textarea id="description" name="description" placeholder="アイテムの説明を入力してください（任意）"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="img_url">画像URL</label>
+                <input type="url" id="img_url" name="img_url" placeholder="https://example.com/image.jpg（任意）">
+            </div>
+
+            <div style="margin-top: 20px;">
+                <button type="submit" class="btn">アイテムを追加</button>
+                <a href="{{ url_for('admin') }}" class="btn" style="background-color: #6c757d;">キャンセル</a>
+            </div>
+        </form>
+
+        <div style="margin-top: 30px; padding: 15px; background-color: #e9ecef; border-radius: 8px;">
+            <h4>注意事項</h4>
+            <ul>
+                <li>ボックスとアイテム名は必須です</li>
+                <li>説明と画像URLは任意ですが、管理しやすくするために入力することをお勧めします</li>
+                <li>画像URLは有効なURL形式で入力してください</li>
+                <li>追加されたアイテムは自動的に「アクティブ」状態になります</li>
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}

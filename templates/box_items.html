@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}{{ box.box_name }} - アイテム一覧{% endblock %}
+
+{% block header %}{{ box.box_name }} - アイテム一覧{% endblock %}
+
+{% block content %}
+    <div style="margin-bottom: 20px;">
+        <a href="{{ url_for('index') }}" class="btn">← ボックス一覧に戻る</a>
+    </div>
+
+    <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+        <h3>ボックス情報</h3>
+        <p><strong>名前:</strong> {{ box.box_name }}</p>
+        <p><strong>説明:</strong> {{ box.description or '説明なし' }}</p>
+        <p><strong>ステータス:</strong> {{ box.status }}</p>
+    </div>
+
+    {% if items %}
+        <h3>アイテム一覧 ({{ items|length }}個)</h3>
+        <div class="item-list">
+            {% for item in items %}
+                <div class="item-card">
+                    <div class="item-name">{{ item.item_name }}</div>
+                    <div class="item-description">{{ item.description or '説明なし' }}</div>
+                    {% if item.img_url %}
+                        <div class="item-img">画像URL: {{ item.img_url }}</div>
+                    {% endif %}
+                    <div style="font-size: 0.9em; color: #888; margin-top: 8px;">
+                        ステータス: {{ item.status }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>このボックスにはまだアイテムが登録されていません。</p>
+        <a href="{{ url_for('add_item') }}" class="btn">アイテムを追加</a>
+    {% endif %}
+{% endblock %}

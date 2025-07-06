@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}管理画面 - ボックス管理システム{% endblock %}
+
+{% block header %}管理画面{% endblock %}
+
+{% block content %}
+    <p>ボックスやアイテムの追加・管理を行います。</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 30px;">
+        <div style="border: 1px solid #ddd; border-radius: 8px; padding: 20px; background-color: #f9f9f9;">
+            <h3 style="color: #4CAF50; margin-top: 0;">ボックス管理</h3>
+            <p>新しいボックスを追加して、物品を整理しましょう。</p>
+            <a href="{{ url_for('add_box') }}" class="btn">新しいボックスを追加</a>
+        </div>
+
+        <div style="border: 1px solid #ddd; border-radius: 8px; padding: 20px; background-color: #f9f9f9;">
+            <h3 style="color: #4CAF50; margin-top: 0;">アイテム管理</h3>
+            <p>既存のボックスに新しいアイテムを追加します。</p>
+            <a href="{{ url_for('add_item') }}" class="btn">新しいアイテムを追加</a>
+        </div>
+    </div>
+
+    <div style="margin-top: 30px; text-align: center;">
+        <a href="{{ url_for('index') }}" class="btn" style="background-color: #6c757d;">メイン画面に戻る</a>
+    </div>
+{% endblock %}
