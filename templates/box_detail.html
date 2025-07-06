@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}{{ box.box_name }} - BoxAdmin{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('index') }}">ホーム</a></li>
+                <li class="breadcrumb-item active">{{ box.box_name }}</li>
+            </ol>
+        </nav>
+        
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1>{{ box.box_name }}</h1>
+            <span class="badge bg-{% if box.status == 'active' %}success{% else %}secondary{% endif %} fs-6">
+                {{ box.status }}
+            </span>
+        </div>
+        
+        {% if box.description %}
+        <p class="text-muted mb-4">{{ box.description }}</p>
+        {% endif %}
+        
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3>アイテム一覧</h3>
+            <a href="{{ url_for('add_item_route') }}?box_id={{ box.box_id }}" class="btn btn-success">
+                アイテム追加
+            </a>
+        </div>
+        
+        {% if items %}
+            <div class="row">
+                {% for item in items %}
+                <div class="col-md-6 col-lg-4 mb-3">
+                    <div class="card">
+                        {% if item.img_url %}
+                        <img src="{{ item.img_url }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ item.item_name }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.item_name }}</h5>
+                            <p class="card-text">{{ item.description or 'No description' }}</p>
+                            <span class="badge bg-{% if item.status == 'active' %}success{% else %}secondary{% endif %}">
+                                {{ item.status }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                <h4>アイテムがありません</h4>
+                <p>このBOXには<a href="{{ url_for('add_item_route') }}?box_id={{ box.box_id }}" class="alert-link">アイテムを追加</a>してください。</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

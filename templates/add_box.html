@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}BOX追加 - BoxAdmin{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('index') }}">ホーム</a></li>
+                <li class="breadcrumb-item active">BOX追加</li>
+            </ol>
+        </nav>
+        
+        <h1>新しいBOXを追加</h1>
+        
+        <form method="POST">
+            <div class="mb-3">
+                <label for="box_name" class="form-label">BOX名 <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="box_name" name="box_name" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="description" class="form-label">説明</label>
+                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+            </div>
+            
+            <div class="mb-3">
+                <label for="status" class="form-label">ステータス</label>
+                <select class="form-select" id="status" name="status">
+                    <option value="active" selected>アクティブ</option>
+                    <option value="inactive">非アクティブ</option>
+                </select>
+            </div>
+            
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">BOXを追加</button>
+                <a href="{{ url_for('index') }}" class="btn btn-secondary">キャンセル</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
